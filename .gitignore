@@ -1,0 +1,43 @@
+# ================================
+# Tensys - .gitignore for GitHub
+# ================================
+
+# ----- OS Generated Files -----
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# ----- Editor / IDE -----
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ----- Logs & Temp -----
+*.log
+*.tmp
+*.temp
+.cache/
+
+# ----- Environment & Secrets -----
+.env
+.env.local
+.env.*.local
+*.pem
+
+# ----- Build / Dependencies (future-proof) -----
+node_modules/
+dist/
+build/
+out/
+.next/
+.nuxt/
+
+# ----- Cloudflare (optional) -----
+# cdn-cgi/ folder is auto-generated when site runs on Cloudflare.
+# Uncomment below if you don't want it in the repo:
+# cdn-cgi/

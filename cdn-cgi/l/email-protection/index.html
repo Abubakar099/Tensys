@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Email Contact</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f5f7fb;
+        color: #1f2937;
+      }
+      .wrap {
+        max-width: 640px;
+        margin: 10vh auto;
+        padding: 24px;
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+      }
+      h1 {
+        margin-top: 0;
+        font-size: 1.5rem;
+      }
+      a {
+        color: #0057b8;
+        word-break: break-all;
+      }
+      .muted {
+        color: #6b7280;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <h1>Contact Email</h1>
+      <p id="status">Preparing email link...</p>
+      <p><a id="email-link" href="mailto:human@tensys.co">human@tensys.co</a></p>
+      <p class="muted">If this page opened from an old obfuscated URL, it has been converted to a working mail link.</p>
+    </main>
+
+    <script>
+      (function () {
+        var link = document.getElementById('email-link');
+        var status = document.getElementById('status');
+        var hash = (window.location.hash || '').replace(/^#/, '');
+
+        function decodeCf(hex) {
+          if (!hex || hex.length < 4 || hex.length % 2 !== 0) return null;
+          var key = parseInt(hex.slice(0, 2), 16);
+          if (Number.isNaN(key)) return null;
+          var out = '';
+          for (var i = 2; i < hex.length; i += 2) {
+            var value = parseInt(hex.slice(i, i + 2), 16);
+            if (Number.isNaN(value)) return null;
+            out += String.fromCharCode(value ^ key);
+          }
+          return out;
+        }
+
+        var decoded = decodeCf(hash);
+        var email = 'human@tensys.co';
+        var subject = '';
+
+        if (decoded && decoded.indexOf('@') !== -1) {
+          var parts = decoded.split('?');
+          email = parts[0];
+          if (parts.length > 1) {
+            subject = '?' + parts.slice(1).join('?');
+          }
+        }
+
+        link.textContent = email;
+        link.href = 'mailto:' + email + subject;
+        status.textContent = 'Click the email below to contact us.';
+      })();
+    </script>
+  </body>
+</html>
